@@ -14,6 +14,10 @@ public class GymMember {
         this.dateOfMembershipRenewal = dateOfMembershipRenewal;
     }
 
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
     public String getName() {
         return name;
     }
