@@ -4,13 +4,21 @@ import java.time.LocalDate;
 
 public class GymMember {
 
-    String name;
-    String socialSecurityNumber;
-    LocalDate dateOfMembershipRenewal;
+    private String socialSecurityNumber;
+    private String name;
+    private LocalDate dateOfMembershipRenewal;
 
-    public GymMember(String name, String socialSecurityNumber, LocalDate dateOfMembershipRenewal) {
-        this.name = name;
+    public GymMember(String socialSecurityNumber, String name, LocalDate dateOfMembershipRenewal) {
         this.socialSecurityNumber = socialSecurityNumber;
+        this.name = name;
         this.dateOfMembershipRenewal = dateOfMembershipRenewal;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getDateOfMembershipRenewal() {
+        return dateOfMembershipRenewal;
     }
 }
