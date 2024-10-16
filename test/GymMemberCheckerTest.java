@@ -15,11 +15,10 @@ public class GymMemberCheckerTest {
 
     GymMemberChecker g = new GymMemberChecker();
     GymMember per = new GymMember("5612245678", "Per Persson", LocalDate.of(2024, 10, 2));
-    GymMember kajsa = new GymMember("6504224253", "Kajsa Karlsson", LocalDate.of(2024, 10, 10));
+    GymMember kajsa = new GymMember("6504224253", "Kajsa Karlsson", LocalDate.of(2023, 10, 10));
 
-    List<GymMember> outputList = new ArrayList<>();
+    String testString = "test";
     List<GymMember> testList = List.of(per, kajsa);
-
 
     @Test
     void testReadFileToList() throws IOException {
@@ -44,7 +43,12 @@ public class GymMemberCheckerTest {
         Throwable e = assertThrows(NoSuchElementException.class, () -> {
             g.findGymMember("Felaktigt input", testList);
         });
-
     }
+
+    @Test
+    void testReadUserInput() {
+        assertEquals("Per Persson", g.readUserInput("Per Persson"));
+    }
+
 
 }

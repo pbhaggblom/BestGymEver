@@ -1,5 +1,4 @@
-import org.w3c.dom.ls.LSOutput;
-
+import java.time.Duration;
 import java.time.LocalDate;
 
 public class GymMember {
@@ -24,5 +23,10 @@ public class GymMember {
 
     public LocalDate getDateOfMembershipRenewal() {
         return dateOfMembershipRenewal;
+    }
+
+    public boolean hasActiveMembership() {
+        LocalDate today = LocalDate.now();
+        return today.isBefore(dateOfMembershipRenewal.plusYears(1));
     }
 }

@@ -3,29 +3,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class GymMemberChecker {
 
-    protected List<GymMember> gymMemberList = new ArrayList<>();
-    protected Path readPath = Path.of("src/gymmembers.txt");
-    protected boolean test = false;
-
-    public GymMemberChecker() {
-
-        gymMemberList = readFileToList(readPath);
-
-    }
+    public boolean test = true;
+    protected Scanner scan;
 
     public List<GymMember> readFileToList(Path filePath) {
         List<GymMember> members = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(filePath)) {
-            String firstLine = "";
-            while ((firstLine = br.readLine()) != null ) {
-                String secondLine = br.readLine();
+            String firstLine;
+            String secondLine;
+            while ((firstLine = br.readLine()) != null && (secondLine = br.readLine()) != null) {
                 GymMember member = parseGymMember(firstLine, secondLine);
                 members.add(member);
             }
@@ -52,7 +45,12 @@ public class GymMemberChecker {
         throw new NoSuchElementException();
     }
 
-    public static void main(String[] args) {
-        GymMemberChecker g = new GymMemberChecker();
+    public String readUserInput(String testString) {
+        if (test) {
+            scan = new Scanner(testString);
+        } else {
+            scan = new Scanner(System.in);
+        }
+        return scan.nextLine();
     }
 }
