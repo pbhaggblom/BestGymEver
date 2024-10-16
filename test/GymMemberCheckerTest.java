@@ -4,12 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GymMemberCheckerTest {
 
@@ -49,6 +47,8 @@ public class GymMemberCheckerTest {
     void testReadUserInput() {
         assertEquals("Per Persson", g.readUserInput("Per Persson"));
     }
+
+
 
 
 }

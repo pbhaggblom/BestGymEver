@@ -1,7 +1,6 @@
 import java.nio.file.Path;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Main {
 
@@ -11,13 +10,13 @@ public class Main {
         GymMemberChecker gmc = new GymMemberChecker();
         List<GymMember> gymMemberList = gmc.readFileToList(readPath);
         System.out.println("Välkommen till Best Gym Ever!");
-        System.out.println("Ange namn eller personnummer på besökare: ");
+
         while (true) {
             try {
+                System.out.println("Ange namn eller personnummer på besökare: ");
                 String input = gmc.readUserInput("test");
                 GymMember visitor = gmc.findGymMember(input, gymMemberList);
-                System.out.println(visitor.getName());
-                //printMembershipDetails
+                System.out.println(visitor.printMembershipDetails());
 //                if (visitor.hasActiveMembership()) {
 //                    //logVisit
 //                }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class GymMemberChecker {
 
-    public boolean test = true;
+    public boolean test = false;
     protected Scanner scan;
 
     public List<GymMember> readFileToList(Path filePath) {

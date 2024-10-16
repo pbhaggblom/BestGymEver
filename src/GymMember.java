@@ -1,4 +1,3 @@
-import java.time.Duration;
 import java.time.LocalDate;
 
 public class GymMember {
@@ -28,5 +27,16 @@ public class GymMember {
     public boolean hasActiveMembership() {
         LocalDate today = LocalDate.now();
         return today.isBefore(dateOfMembershipRenewal.plusYears(1));
+    }
+
+    public String printMembershipDetails() {
+        String details = name;
+        if (hasActiveMembership()) {
+            details += " har ett aktivt medlemskap som utgår ";
+        } else {
+            details += "s medlemskap gick ut ";
+        }
+        details += dateOfMembershipRenewal.plusYears(1);
+        return details;
     }
 }
