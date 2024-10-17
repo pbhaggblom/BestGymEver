@@ -10,16 +10,20 @@ public class Main {
     public Main() {
         GymMemberChecker gmc = new GymMemberChecker();
         List<GymMember> gymMemberList = gmc.readFileToList(readPath);
-        System.out.println("Välkommen till Best Gym Ever!");
+        System.out.println("Välkommen till Best Gym Ever!\n(q för att avsluta)");
 
         while (true) {
+            System.out.println("Ange namn eller personnummer på besökare: ");
+            String input = gmc.readUserInput(null);
+            if (input.equals("q")) {
+                System.exit(0);
+            }
             try {
-                System.out.println("Ange namn eller personnummer på besökare: ");
-                String input = gmc.readUserInput(null);
                 GymMember visitor = gmc.findGymMember(input, gymMemberList);
                 System.out.println(visitor.printMembershipDetails());
                 if (visitor.hasActiveMembership()) {
-                    visitor.logVisit(writePath, null);
+                    gmc.logVisit(visitor, writePath, null);
+                    System.out.println("Registrerar gymbesök");
                 }
             } catch (NoSuchElementException e) {
                 System.out.println("Hittade ingen medlem med matchande namn eller personnummer");

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -38,8 +40,8 @@ public class GymMemberCheckerTest {
     void testFindGymMember() {
         assertEquals(kajsa, g.findGymMember("6504224253", testList));
         assertEquals(per, g.findGymMember("Per Persson", testList));
-        Throwable e = assertThrows(NoSuchElementException.class, () -> {
-            g.findGymMember("Felaktigt input", testList);
+        assertThrows(NoSuchElementException.class, () -> {
+            g.findGymMember("Felaktig input", testList);
         });
     }
 
@@ -48,7 +50,21 @@ public class GymMemberCheckerTest {
         assertEquals("Per Persson", g.readUserInput("Per Persson"));
     }
 
+    @Test
+    void testLogVisit() throws IOException {
+        Path temp = Files.createTempFile("writetest", "txt");
+        LocalTime time = LocalTime.of(13, 45, 16);
+        LocalDate date = LocalDate.of(2024, 10, 5);
+        LocalDateTime testDateTime = LocalDateTime.of(date, time);
 
+        g.logVisit(per, temp, testDateTime);
+        g.logVisit(kajsa, temp, testDateTime);
+        String excpected = "5612245678, Per Persson\n2024-10-05 13:45\n\n6504224253, Kajsa Karlsson\n2024-10-05 13:45";
+        String gymVisits = Files.readString(temp);
+        assertEquals(excpected, gymVisits.trim());
+
+        Files.deleteIfExists(temp);
+    }
 
 
 }
