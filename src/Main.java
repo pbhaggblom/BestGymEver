@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 public class Main {
 
     protected Path readPath = Path.of("src/gymmembers.txt");
+    protected Path writePath = Path.of("src/gymvisits");
 
     public Main() {
         GymMemberChecker gmc = new GymMemberChecker();
@@ -14,12 +15,12 @@ public class Main {
         while (true) {
             try {
                 System.out.println("Ange namn eller personnummer på besökare: ");
-                String input = gmc.readUserInput("test");
+                String input = gmc.readUserInput(null);
                 GymMember visitor = gmc.findGymMember(input, gymMemberList);
                 System.out.println(visitor.printMembershipDetails());
-//                if (visitor.hasActiveMembership()) {
-//                    //logVisit
-//                }
+                if (visitor.hasActiveMembership()) {
+                    visitor.logVisit(writePath, null);
+                }
             } catch (NoSuchElementException e) {
                 System.out.println("Hittade ingen medlem med matchande namn eller personnummer");
             }
