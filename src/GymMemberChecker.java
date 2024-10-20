@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class GymMemberChecker {
 
     private boolean test = true;
+    protected DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public List<GymMember> readFileToList(Path filePath) {
         List<GymMember> members = new ArrayList<>();
@@ -22,16 +23,17 @@ public class GymMemberChecker {
             String firstLine;
             String secondLine;
             while ((firstLine = br.readLine()) != null && (secondLine = br.readLine()) != null) {
-                GymMember member = parseGymMember(firstLine, secondLine);
+                GymMember member = processGymMember(firstLine, secondLine);
                 members.add(member);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Något gick fel vid inläsning av data");
+            System.exit(-1);
         }
         return members;
     }
 
-    public GymMember parseGymMember(String s1, String s2) {
+    public GymMember processGymMember(String s1, String s2) {
         String[] data = s1.split(",");
         String socialSecurityNumber = data[0].trim();
         String name = data[1].trim();
@@ -45,7 +47,7 @@ public class GymMemberChecker {
                 return member;
             }
         }
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("Hittade ingen medlem med matchande namn eller personnummer");
     }
 
     public String readUserInput(String testString) {
@@ -55,21 +57,15 @@ public class GymMemberChecker {
         } else {
             scan = new Scanner(System.in);
         }
-        return scan.nextLine();
+        return scan.nextLine().trim();
     }
 
-    public void logVisit(GymMember visitor, Path filePath, LocalDateTime testDate) {
-        LocalDateTime dateTime;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if (test) {
-            dateTime = LocalDateTime.of(testDate.toLocalDate(), testDate.toLocalTime());
-        } else {
-            dateTime = LocalDateTime.now();
-        }
+    public void logVisit(GymMember visitor, Path filePath) {
+        LocalDateTime dateTime = LocalDateTime.now();
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath.toString(), true))) {
             bw.append(visitor.getSocialSecurityNumber()).append(", ").append(visitor.getName()).append("\n").append(dtf.format(dateTime)).append("\n\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Något gick fel vid registrering av gymbesök, maila pt@bestgymever.com");
         }
     }
 }
