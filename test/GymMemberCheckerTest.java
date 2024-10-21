@@ -22,9 +22,9 @@ public class GymMemberCheckerTest {
     @Test
     void testReadFileToList() throws IOException {
         Path temp = Files.createTempFile("readtest", ".txt");
-        String gm1RenewalDate = LocalDate.now().toString();
-        String gm2RenewalDate = LocalDate.now().minusYears(2).toString();
-        Files.write(temp, (testString1 + "\n" + gm1RenewalDate + "\n" + testString2 + "\n" + gm2RenewalDate).getBytes());
+        String member1RenewalDate = LocalDate.now().toString();
+        String member2RenewalDate = LocalDate.now().minusYears(2).toString();
+        Files.write(temp, (testString1 + "\n" + member1RenewalDate + "\n" + testString2 + "\n" + member2RenewalDate).getBytes());
         List<GymMember> listFromFile = g.readFileToList(temp);
 
         assertEquals(testList.get(0).getSocialSecurityNumber(), listFromFile.get(0).getSocialSecurityNumber());
